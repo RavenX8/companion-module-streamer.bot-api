@@ -30,7 +30,7 @@ export default function (self) {
 					id: 'actionArgs',
 					type: 'textinput',
 					label: 'Action Arguments',
-					default: 0,
+					default: '',
 				},
 			],
 			callback: async (event) => {
@@ -82,6 +82,44 @@ export default function (self) {
 			callback: async (event) => {
 				console.log('Test Credits!')
 				await self.client.testCredits()
+			},
+		},
+		runTrigger: {
+			name: 'Run Code Trigger',
+			options: [
+				{
+					id: 'trigger',
+					type: 'dropdown',
+					label: 'Trigger',
+					default: '',
+					choices: self.triggers.triggers.map((value) => ({ label: value.name, ...value })),
+				},
+			],
+			callback: async (event) => {
+				console.log('Run Trigger!', event.options.action)
+				await self.client.executeCodeTrigger(event.options.trigger)
+			},
+		},
+		runTriggerAdvanced: {
+			name: 'Run Code Trigger Advanced',
+			options: [
+				{
+					id: 'trigger',
+					type: 'dropdown',
+					label: 'Trigger',
+					default: '',
+					choices: self.triggers.triggers.map((value) => ({ label: value.name, ...value })),
+				},
+				{
+					id: 'triggerArgs',
+					type: 'textinput',
+					label: 'Trigger Arguments',
+					default: '',
+				},
+			],
+			callback: async (event) => {
+				console.log('Run Trigger!', event.options.action)
+				await self.client.executeCodeTrigger(event.options.trigger, event.options.triggerArgs)
 			},
 		},
 	})

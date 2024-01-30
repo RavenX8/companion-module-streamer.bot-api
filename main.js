@@ -15,6 +15,7 @@ class ModuleInstance extends InstanceBase {
 		this.config = {}
 		this.credits = {}
 		this.actions = []
+		this.triggers = []
 		this.activeViewers = 0
 		this.dataArray = []
 	}
@@ -54,6 +55,9 @@ class ModuleInstance extends InstanceBase {
 
 				await this.client.getActions().then((value) => {
 					this.actions = value
+				})
+				await this.client.getCodeTriggers().then((value) => {
+					this.triggers = value
 				})
 				await this.client.getActiveViewers().then((value) => {
 					this.activeViewers = value.count
